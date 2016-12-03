@@ -43,7 +43,7 @@ public :
 	}
 	void getMovieInformation()
 	{
-		return  movieTitle, movieRelease, moviePrice << endl; 
+		 cout <<  movieTitle << ", " <<  movieRelease << ", " <<  moviePrice << endl; 
 	}
 	~movieInformation(){
 	}
