@@ -10,6 +10,7 @@ using namespace std;
 
 void movieInput(); 
 int selectMenu(); 
+void moviePrint(); 
 
 class seatInformation { //좌석 정보 
 	int movieSeat[ROW][COL]; 
@@ -34,59 +35,66 @@ class movieInformation { //영화 정보
 	int moviePrice;
 
 public : 
-	void setMovieTitle(string movieTitle)
+	void setMovieTitle(string movieTitle, string movieRelease, int moviePrice)
 	{
 		this -> movieTitle = movieTitle; 
+		this -> movieRelease = movieRelease; 
+		this -> moviePrice = moviePrice; 
+	}
+	void getMovieInformation()
+	{
+		return  movieTitle, movieRelease, moviePrice << endl; 
 	}
 	~movieInformation(){
 	}
 };
 
+movieInformation addMovie[MAX]; 
+
 int main()
 { 
-	    cout << "\t*********************************************************" << endl;
-		cout << "\t*                                                       *" << endl;
-		cout << "\t*             Welcome to our Theater!! V.1.0		       *" << endl;
-		cout << "\t*                                                       *" << endl;
-		cout << "\t*                                                       *" << endl;
-		cout << "\t*                        Project By SeongWon, Min Young *" << endl;
-		cout << "\t*********************************************************" << endl;
-		cout << endl << endl;
+	cout << "\t*********************************************************" << endl;
+	cout << "\t*                                                       *" << endl;
+	cout << "\t*             Welcome to our Theater!! V.1.0            *" << endl;
+	cout << "\t*                                                       *" << endl;
+	cout << "\t*                                                       *" << endl;
+	cout << "\t*                        Project By SeongWon, Min Young *" << endl;
+	cout << "\t*********************************************************" << endl;
+	cout << endl << endl;
 		
+	movieInput(); 
+	int select = selectMenu(); // 기능 선택함수 
+
+	while(true) 
+	{ 
+		switch(select) 
+		{	 
+			case 1 : // 상영중인 영화 
+				moviePrint(); 
+				break;
+
+			case 2: // 영화 예매 
+				break;
+
+			case 3: // 좌석 출력 
+				break;
+
+			case 4: // 나가기
+				//system("clear"); 
+				//sleep(1000);  
+				cout << "이용해 주셔서 감사합니다" << endl; 
+				return 0;
+
+			default : 
+				cout << "다시 입력하세요" << endl ; 
+		} 
+	} 
 		
-		movieInput(); 
-	/*	int select = selectMenu(); // 기능 선택함수 
-
-		while(true) 
-		{ 
-			switch(select) 
-			{	 
-				case 1 : // 상영중인 영화 
-					break;
-
-				case 2: // 영화 예매 
-					break;
-
-				case 3: // 좌석 출력 
-					break;
-
-				case 4: // 나가기
-					//system("clear"); 
-					//sleep(1000);  
-					cout << "이용해 주셔서 감사합니다" << endl; 
-					return 0;
-
-				default : 
-					cout << "다시 입력하세요" << endl ; 
-			} 
-		} */
-		
-		return 0; 
+	return 0; 
 }
 		
 void movieInput()
 {	
-	movieInformation addMovie[MAX]; 
 	string tmpTitle, tmpRelease;
 	int tmpPrice; 
 
@@ -100,20 +108,31 @@ void movieInput()
 		 
 		cout << "가격  : ";
 		cin >> tmpPrice;
-		
-		addMovie[i].setMovieTitle(tmpTitle); 
+		addMovie[i].setMovieTitle(tmpTitle, tmpRelease, tmpPrice); 
 	}  
-
 }
 
+int selectMenu()
+{
+	int select; 
+	cout << "Object C++ Movie Ticketing System" << endl << endl; 
+	cout << "1번 상영중인 영화 출력 " << endl; 
+	cout << "2번 영화예매 " << endl; 
+	cout << "3번 좌석 출력" << endl; 
+	cout << "4번 나가기" << endl; 
 
+	while(true) 
+	{
+		cin >> select;
+		if(select < 4)
+			break; 
+	}
+	return select; 
+}
 
-
-
-
-
-
-
-
-
+void moviePrint()
+{
+	addMovie[0].getMovieInformation();
+	addMovie[1].getMovieInformation();
+}
 
