@@ -13,8 +13,9 @@ using namespace std;
 void movieInput(); 
 int selectMenu(); 
 void moviePrint();
-void seatPrint();
-void seatInput(int i, int j); 
+void seatPrint(int i);
+void seatInput(int i, int j);
+void movieReservation(); 
 
 class seatInformation { //좌석 정보 
 	int movieSeat[ROW][COL]; 
@@ -56,6 +57,7 @@ class movieInformation { //영화 정보
 	int moviePrice;
 
 public : 
+	friend void movieReservation();
 	void setMovieTitle(string movieTitle, string movieRelease, int moviePrice)
 	{
 		this -> movieTitle = movieTitle; 
@@ -63,9 +65,9 @@ public :
 		this -> moviePrice = moviePrice; 
 	}
 	
-	void getMovieInformation()
+	void getMovieInformation(int i)
 	{
-		 cout << "\t\t 영화제목 : " <<  movieTitle;
+		 cout <<  "\t\t" << i+1 << "번 영화제목 : " <<  movieTitle;
 		 cout << ", 개봉일 : " <<  movieRelease; 
 		 cout << ", 영화 가격 : " <<  moviePrice << endl; 
 	}
@@ -79,6 +81,7 @@ seatInformation addSeat[MAX]; // 좌석 정보 class 배열 전역선언
 int main()
 { 
 	movieInput(); 
+	int i;
 
 	while(true) 
 	{ 
@@ -90,10 +93,15 @@ int main()
 				break;
 
 			case 2: // 영화 예매 
+				movieReservation(); 
 				break;
 
 			case 3: // 좌석 출력 
-				seatPrint();
+				moviePrint();
+				cout << "몇번 영화를 예약 하셨나요? " << endl <<  "->";
+				cin >> i;
+
+				seatPrint(i);
 				break;
 
 			case 4: // 나가기
@@ -105,8 +113,7 @@ int main()
 			default : 
 				cout << "다시 입력하세요" << endl ; 
 		} 
-	} 
-		
+	} 	
 	return 0; 
 }
 		
@@ -157,18 +164,49 @@ void moviePrint()
 
 	cout << endl << endl << "\t\t-------------------- 상영중인 영화 정보 -------------------- " << endl << endl;
 	for(int i = 0; i < MAX; i++)
-		addMovie[i].getMovieInformation();
+	{
+		addMovie[i].getMovieInformation(i);
+	}
 	cout << endl << endl << "\t\t------------------------------------------------------------ " << endl << endl;
 	cout << endl << endl;
 }
 
-void seatPrint()
+void seatPrint(int i)
 {
 	system("clear"); 
-	
+
+	// 에러처리 코드 삽입 
 	cout << endl << endl << "\t\t-------------------- S  C  R  E  E  N -------------------- " << endl << endl;
-	addSeat[1].getSeatInformation(); 
+	addSeat[i-1].getSeatInformation(); 
 	cout << endl << endl << "\t\t---------------------------------------------------------- " << endl << endl;
 	cout << endl << endl; 
 
 }
+
+void movieReservation()
+{
+	int i;
+	int person; 
+	int seatNumber; 
+
+	moviePrint(); 
+	cout << " 몇 번 영화를 예약하실 건가요? " << endl << "->"; 
+	cin >> i; 
+
+	cout << "몇 명이신가요? " << endl << "->"; 
+	cin >> person; 
+
+	seatPrint(i); 
+	cout << "좌석 번호 입력 " << endl << "->"; 
+	cin >> seatNumber; 
+
+	// 어떤 영화, 총가격, 좌석배치도 
+	cout << "제목 : " << addMovie[i-1].movieTitle << ", "; 
+	cout << "개봉일 :" << addMovie[i-1].movieRelease << ", ";
+	cout << "총 가격 : " << addMovie[i-1].moviePrice * person << endl;  
+
+	system("clear"); 
+	seatPrint(i); 
+	cout << "예약이 완료되었습니다. " << endl; 
+}
+
