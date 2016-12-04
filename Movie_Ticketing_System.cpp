@@ -15,12 +15,14 @@ int selectMenu();
 void moviePrint();
 void seatPrint(int i);
 void seatInput(int i, int j);
-void movieReservation(); 
+void movieReservation();
+void seatReservation(int num, int *seatNumber, int person);
 
 class seatInformation { //좌석 정보 
 	int movieSeat[ROW][COL]; 
 
 public :
+	friend void seatReservation(int num, int *seatNumber, int person);
 	seatInformation()
 	{
 		int seatNumber = 1; 
@@ -186,8 +188,7 @@ void seatPrint(int i)
 void movieReservation()
 {
 	int i;
-	int person; 
-	int seatNumber; 
+	int person;  
 
 	moviePrint(); 
 	cout << " 몇 번 영화를 예약하실 건가요? " << endl << "->"; 
@@ -195,18 +196,39 @@ void movieReservation()
 
 	cout << "몇 명이신가요? " << endl << "->"; 
 	cin >> person; 
-
+	
 	seatPrint(i); 
+	int *seatNumber = new int [person];
 	cout << "좌석 번호 입력 " << endl << "->"; 
-	cin >> seatNumber; 
+	for( int j = 0; j < person; j++)
+		cin >> seatNumber[j]; 
+	
+	seatReservation(i, seatNumber, person);
+//	seatPrint(i); 
 
-	// 어떤 영화, 총가격, 좌석배치도 
 	cout << "제목 : " << addMovie[i-1].movieTitle << ", "; 
 	cout << "개봉일 :" << addMovie[i-1].movieRelease << ", ";
-	cout << "총 가격 : " << addMovie[i-1].moviePrice * person << endl;  
-
-	system("clear"); 
-	seatPrint(i); 
+	cout << "총 가격 : " << addMovie[i-1].moviePrice * person << endl << endl;  
+ 
 	cout << "예약이 완료되었습니다. " << endl; 
 }
 
+void seatReservation(int num, int *seatNumber, int person)
+{
+	int tmp = 0; // person  
+	int i,j;  
+
+	while( tmp != person)
+	{ 
+		for(i = 0; i < ROW; i++)
+			for(j = 0; j < COL; j++)
+			{
+				if(addSeat[num-1].movieSeat[i][j] == seatNumber[tmp])
+				{
+					addSeat[num-1].setSeatinformation(i, j); 
+					cout << i << j << endl; 
+				}
+			}
+		tmp++;
+	}
+}
