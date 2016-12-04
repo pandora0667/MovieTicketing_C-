@@ -26,7 +26,7 @@ public :
 		for(int i = 0; i < ROW; i++) 
 			for(int j = 0; j< COL; j++) 
 			{
-				movieSeat[i][j] += seatNumber;
+				movieSeat[i][j] = seatNumber;
 				seatNumber++;
 			}
 	}
