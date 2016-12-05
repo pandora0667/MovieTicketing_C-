@@ -16,13 +16,13 @@ void moviePrint();
 void seatPrint(int i);
 void seatInput(int i, int j);
 void movieReservation();
-void seatReservation(int num, int *seatNumber, int person);
+int seatReservation(int num, int *seatNumber, int person);
 
 class seatInformation { //좌석 정보 
 	int movieSeat[ROW][COL]; 
 
 public :
-	friend void seatReservation(int num, int *seatNumber, int person);
+	friend int seatReservation(int num, int *seatNumber, int person);
 	seatInformation()
 	{
 		int seatNumber = 1; 
@@ -143,7 +143,7 @@ int selectMenu()
 {
 	cout << "\t*********************************************************" << endl;
 	cout << "\t*                                                       *" << endl;
-	cout << "\t*             Welcome to our Theater!! V.1.2            *" << endl;
+	cout << "\t*             Welcome to our Theater!! V.2.0            *" << endl;
 	cout << "\t*             Object C++ Movie Ticketing System         *" << endl;
 	cout << "\t*                                                       *" << endl;
 	cout << "\t*                       Project By Seong Won, Min Young *" << endl;
@@ -175,14 +175,10 @@ void moviePrint()
 
 void seatPrint(int i)
 {
-	system("clear"); 
-
-	// 에러처리 코드 삽입 
 	cout << endl << endl << "\t\t-------------------- S  C  R  E  E  N -------------------- " << endl << endl;
 	addSeat[i-1].getSeatInformation(); 
 	cout << endl << endl << "\t\t---------------------------------------------------------- " << endl << endl;
 	cout << endl << endl; 
-
 }
 
 void movieReservation()
@@ -203,17 +199,23 @@ void movieReservation()
 	for( int j = 0; j < person; j++)
 		cin >> seatNumber[j]; 
 	
-	seatReservation(i, seatNumber, person);
-//	seatPrint(i); 
-
+	int check = seatReservation(i, seatNumber, person);
+	system("clear");	
+	seatPrint(i);
+	
+	if(check != 0)
+	{
+		cout << "이미 예약한 좌석입니다. " << endl << "다시한번 확인해 주세요!! "<< endl; 
+		return;
+	}
 	cout << "제목 : " << addMovie[i-1].movieTitle << ", "; 
 	cout << "개봉일 :" << addMovie[i-1].movieRelease << ", ";
 	cout << "총 가격 : " << addMovie[i-1].moviePrice * person << endl << endl;  
  
-	cout << "예약이 완료되었습니다. " << endl; 
+	cout << "예약이 완료되었습니다. " << endl;
 }
 
-void seatReservation(int num, int *seatNumber, int person)
+int seatReservation(int num, int *seatNumber, int person)
 {
 	int tmp = 0; // person  
 	int i,j;  
@@ -224,11 +226,11 @@ void seatReservation(int num, int *seatNumber, int person)
 			for(j = 0; j < COL; j++)
 			{
 				if(addSeat[num-1].movieSeat[i][j] == seatNumber[tmp])
-				{
-					addSeat[num-1].setSeatinformation(i, j); 
-					cout << i << j << endl; 
-				}
+					addSeat[num-1].setSeatinformation(i, j);  
+				else if(addSeat[num-1].movieSeat[i][j] == 0) 
+					return 1; 
 			}
-		tmp++;
+		tmp++; 
 	}
+	return 0; 
 }
