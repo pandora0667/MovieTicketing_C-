@@ -143,7 +143,7 @@ int selectMenu()
 {
 	cout << "\t*********************************************************" << endl;
 	cout << "\t*                                                       *" << endl;
-	cout << "\t*             Welcome to our Theater!! V.2.0            *" << endl;
+	cout << "\t*             Welcome to our Theater!! V.2.2            *" << endl;
 	cout << "\t*             Object C++ Movie Ticketing System         *" << endl;
 	cout << "\t*                                                       *" << endl;
 	cout << "\t*                       Project By Seong Won, Min Young *" << endl;
@@ -205,7 +205,7 @@ void movieReservation()
 	
 	if(check == 1)
 	{
-		cout << "이미 예약한 좌석입니다. " << endl << "다시한번 확인해 주세요!! "<< endl; 
+		cout << "예약한 좌석이 있습니다. " << endl << "다시한번 확인해 주세요!! "<< endl; 
 		return;
 	}
 	cout << "제목 : " << addMovie[i-1].movieTitle << ", "; 
@@ -229,8 +229,8 @@ int seatReservation(int num, int *seatNumber, int person)
 			for(j = 0; j < COL; j++)
 				if(addSeat[num-1].movieSeat[i][j] == seatNumber[tmp])
 				{
-					addSeat[num-1].setSeatinformation(i, j);   
-					reservation[num-1]++;
+					reservation[num-1]++;	
+					addSeat[num-1].setSeatinformation(i, j);  
 				}
 		tmp++; 
 	}
