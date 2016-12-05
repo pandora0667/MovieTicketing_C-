@@ -203,7 +203,7 @@ void movieReservation()
 	system("clear");	
 	seatPrint(i);
 	
-	if(check != 0)
+	if(check == 1)
 	{
 		cout << "이미 예약한 좌석입니다. " << endl << "다시한번 확인해 주세요!! "<< endl; 
 		return;
@@ -217,20 +217,26 @@ void movieReservation()
 
 int seatReservation(int num, int *seatNumber, int person)
 {
-	int tmp = 0; // person  
-	int i,j;  
+	int tmp = 0; // person
+	int i,j;
+	int reservation[MAX] = {0}; 
+	int tmpPerson[MAX] = {0}; 
 
+	tmpPerson[num-1] += person; 
 	while( tmp != person)
 	{ 
 		for(i = 0; i < ROW; i++)
 			for(j = 0; j < COL; j++)
-			{
 				if(addSeat[num-1].movieSeat[i][j] == seatNumber[tmp])
-					addSeat[num-1].setSeatinformation(i, j);  
-				else if(addSeat[num-1].movieSeat[i][j] == 0) 
-					return 1; 
-			}
+				{
+					addSeat[num-1].setSeatinformation(i, j);   
+					reservation[num-1]++;
+				}
 		tmp++; 
 	}
-	return 0; 
+	
+	if(reservation[num-1] == tmpPerson[num-1])
+		return 0;
+	else 
+		return 1;
 }
