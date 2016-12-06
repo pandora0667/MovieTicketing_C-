@@ -24,7 +24,7 @@ int selectMenu()
 {
 	cout << "\t*********************************************************" << endl;
 	cout << "\t*                                                       *" << endl;
-	cout << "\t*             Welcome to our Theater!! V.2.7            *" << endl;
+	cout << "\t*             Welcome to our Theater!! V.2.8            *" << endl;
 	cout << "\t*             Object C++ Movie Ticketing System         *" << endl;
 	cout << "\t*                                                       *" << endl;
 	cout << "\t*                       Project By Seong Won, Min Young *" << endl;
@@ -32,13 +32,22 @@ int selectMenu()
 	cout << endl << endl;
 
 	int select; 
-	cout << "1번 상영중인 영화 출력 " << endl; 
-	cout << "2번 영화예매 " << endl; 
-	cout << "3번 좌석 출력" << endl; 
-	cout << "4번 나가기" << endl; 
+	while(true)
+	{
+		cout << "1번 상영중인 영화 출력 " << endl; 
+		cout << "2번 영화예매 " << endl; 
+		cout << "3번 좌석 출력" << endl; 
+		cout << "4번 나가기" << endl; 
 
-	cin >> select; 
-	return select; 
+		cin >> select;
+		if(select <=4 )
+			return select;
+		else 
+		{
+			system("clear"); 
+			cout << "Retry!! Please" << endl;
+		}
+	}		
 }
 
 void moviePrint(class movieInformation *addMovie)
