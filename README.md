@@ -7,7 +7,7 @@
 
 프로그램에서는 Class, Friend,동적할당, 분할 컴파일, 함수의 개념이 사용되었습니다.
 
-제작자 : 한밭대하교 정보통신공학과 이성원 
+제작자 : 한밭대학교 정보통신공학과 이성원 
 누구나 자유롭게 다운받아 수정 재배포가 가능합니다.
 
 This program is an object-oriented (C ++) class assignment.
